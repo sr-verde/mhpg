@@ -1,0 +1,146 @@
+* {
+  margin:0;
+  padding:0;
+}
+
+html {
+  background:#eee;
+  font-family:Merriweather,Georgia,serif;
+}
+
+body {
+  padding:4em;
+  margin:2em auto;
+  width:27em;
+  background:#fff;
+}
+
+footer {
+  margin:3em 0 0;
+  margin:2rem 0 0;
+  font-size:.8125em;
+  font-size:.8125rem;
+  color:#686868;
+}
+
+a {
+  color:#686868;
+  text-decoration:none;
+}
+
+a:hover {
+  color:#006c93;
+  text-decoration:underline;
+}
+
+h1 {
+  font-family:Montserrat,"Helvetica Neue",sans-serif;
+  font-size:1.5em;
+  color:#006c93;
+}
+
+ul {
+  list-style-type:none;
+}
+
+li {
+  margin:1em 0;
+}
+
+label {
+  display:block;
+  float:left;
+  width:12em;
+  line-height:2em;
+  padding:.25em 0;
+  line-height:calc(1.5em + 4px);
+}
+
+input, select, #hashedPw {
+  width:16em;
+  width:15rem;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  appearance:none;
+  border:none;
+  border:1px solid #bbb;
+  padding:.5em;
+  box-shadow:.1em .1em .2em 0 rgba(0,0,0,0.2);
+  border-radius:.25em;
+  -webkit-box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  box-sizing:border-box;
+}
+
+#hashedPw {
+  display:flex;
+  overflow:auto;
+}
+
+select {
+  padding-right:2em;
+  background-color:#fff;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='50' fill='%23bbbbbb'><polygon points='0,0 100,0 50,50'/></svg>");
+  background-position:right center;
+  background-repeat:no-repeat;
+  background-size:1.5em;
+  &::-ms-expand { display: none };
+}
+
+select:hover, select:focus, input:hover, input:focus {
+  box-shadow:.1em .1em .1em 0 rgba(0,0,0,0.1);
+}
+
+input[type="submit"] {
+  width:29em;
+  width:27rem;
+  margin-bottom:1em;
+  background:#006c93;
+  color:#fff;
+  font-family:Montserrat,"Helvetica Neue",sans-serif;
+  font-weight:bold;
+  text-transform:uppercase;
+}
+
+input[type="submit"]:hover {
+  background:#686868;
+  cursor:pointer;
+}
+
+/* remove dotted firefox border */
+@-moz-document url-prefix() {
+	select {
+		color:#000;
+		text-shadow: 0 0 0 #ffffff;
+	}
+}
+
+ul:after {
+  content:'.';
+  display:block;
+  visibility:hidden;
+  line-height:0;
+  height:0;
+  clear:both;
+}
+
+@media screen and (max-width:30em) {
+  body {
+    margin:0;
+    padding:1em;
+    width:auto;
+  }
+
+	label, input, select, input[type="submit"], #hashedPw {
+	  width:100%;
+	}
+	
+	input[type="submit"] {
+	  margin-top:2em;
+	}
+
+  input, select, #hashedPw {
+	  line-height:2em;
+	  margin-left:0 !important;
+  }
+}

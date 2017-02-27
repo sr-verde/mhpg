@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <!-- META -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Dieser Generator erzeugt aus einem gegebenem Passwort und einer Domain ein individuelles Passwort." />
+  <meta name="keywords" content="Passwort, Hash, Sicherheit" />
+  <!-- Design-Staff -->
+  <link rel="stylesheet" id="twentysixteen-fonts-css"  href="https://fonts.googleapis.com/css?family=Merriweather%3A400%2C700%2C900%2C400italic%2C700italic%2C900italic%7CMontserrat%3A400%2C700%7CInconsolata%3A400&#038;subset=latin%2Clatin-ext" type="text/css" media="all" />
+  <link rel="stylesheet" href="css/style.css" media="all" />
+  <link rel="icon" href="images/favicon.png" type="image/png" />
+  <title>Mobiler Hash-Passwort-Generator (MHPG)</title>
+</head>
+<body>
+  <h1>Mobiler Hash-Passwort-Generator</h1>
+
+  <ul>
+    <li><label for="algorithm">Algorithmus:</label>
+      
+	      <select id="algorithm">
+		      <option selected="true">PwdHash</option>
+
+		      <option>Hex MD5</option>
+		      <option>Base64 MD5</option>
+
+		      <option>Hex SHA1</option>
+		      <option>Base64 SHA1</option>
+
+		      <option>Hex SHA256</option>
+		      <option>Base64 SHA256</option>
+
+		      <option>Hex SHA512</option>
+		      <option>Base64 SHA512</option>
+
+		      <option>Hex RMD160</option>
+		      <option>Base64 RMD160</option>
+	      </select>
+	  </li>
+
+    <li><label for="passwordLength">Länge:</label>
+	    <input type="number" id="passwordLength" size="2" value="24" required />
+    </li>
+
+	  <li><label for="site" title="Dies kann die Domain oder der Name des Dienstes sein">Variable:</label>
+	    <input type="text" id="site" value="" placeholder="example.com" />
+    </li>
+
+    <li><label for="password">Passwort:</label>
+      <input type="password" id="password" required placeholder="Geheim123" />
+    </li>
+
+    <li>
+      <input type="submit" value="Passwort erzeugen" 
+        onclick="document.getElementById('hashedPw').innerHTML=hash(document.getElementById('password').value, 
+                 document.getElementById('site').value.toLowerCase());document.getElementById('hashedPw').size=
+                 document.getElementById('passwordLength').value;">
+    </li>
+    
+    <li><label>Erzeugtes Passwort:</label>
+      <div id="hashedPw">&nbsp;</div>
+    </li>
+  </ul>
+  
+  <footer>
+    <p><a href="//theus.name">Pascua Theus</a> / <a href="http://www.timando.net/hash-1/mobile.html">Nach einer Idee von Tim Anderson</a></p>
+  </footer>
+
+  <!-- JavaScripts -->
+  <script type="application/x-javascript" src="js/jshashes.js"></script>
+  <script type="application/x-javascript" src="js/password-hash.js"></script>
+  <script>
+    function hash(master, domain) {
+      passwordLength = parseInt(document.getElementById('passwordLength').value);
+      var MD5 = new Hashes.MD5
+      var SHA1 = new Hashes.SHA1
+      var SHA256 =  new Hashes.SHA256
+      var SHA512 = new Hashes.SHA512
+      var RMD160 = new Hashes.RMD160
+			switch (document.getElementById('algorithm').selectedIndex){
+        case 0: return pwdHash.getHashedPassword(master, domain);
+        case 1: return MD5.hex(master+":"+domain).substring(0,passwordLength);
+        case 2: return MD5.b64(master+":"+domain).substring(0,passwordLength);
+        case 3: return SHA1.hex(master+":"+domain).substring(0,passwordLength);
+        case 4: return SHA1.b64(master+":"+domain).substring(0,passwordLength);
+        case 5: return SHA256.hex(master+":"+domain).substring(0,passwordLength);
+        case 6: return SHA256.b64(master+":"+domain).substring(0,passwordLength);
+        case 7: return SHA512.hex(master+":"+domain).substring(0,passwordLength);
+        case 8: return SHA512.b64(master+":"+domain).substring(0,passwordLength);
+        case 9: return RMD160.hex(master+":"+domain).substring(0,passwordLength);
+        case 10: return RMD160.b64(master+":"+domain).substring(0,passwordLength);
+      }
+    }
+  </script>
+</body>
+</html>
+
