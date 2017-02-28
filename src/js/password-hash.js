@@ -27,7 +27,7 @@ var pwdHash={
 	getHashedPassword:function(password, realm) {
 		password.substring(0,this.len) == this.PasswordPrefix ? password = password.substring(this.len) : false
 		var SHA512 = new Hashes.SHA512
-		var hash = SHA512.b64(password, realm);
+		var hash = SHA512.b64(password + ':' + realm);
 		var size = password.length + this.len;
 		var nonalphanumeric = password.match(/\W/) != null;
 		var result = this.applyConstraints(hash, size, nonalphanumeric);
