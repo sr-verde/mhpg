@@ -15,6 +15,8 @@
 <body>
   <h1>Mobiler Hash-Passwort-Generator</h1>
 
+  <p>Wichtig: Lasse dir bei der Erzeugung des Passworts nicht über die Schulter schauen. Das Passwort wird anschließend im Klartext angezeigt.</p>
+
   <ul>
     <li><label for="algorithm">Algorithmus:</label>
       
@@ -63,13 +65,17 @@
   </ul>
   
   <footer>
-    <p><a href="//theus.name">Pascua Theus</a> / <a href="http://www.timando.net/hash-1/mobile.html">Nach einer Idee von Tim Anderson</a></p>
+    <p><a href="https://theus.name">Pascua Theus</a> / <a href="http://www.timando.net/hash-1/mobile.html">Nach einer Idee von Tim Anderson</a></p>
   </footer>
 
   <!-- JavaScripts -->
   <script type="application/x-javascript" src="js/jshashes.js"></script>
   <script type="application/x-javascript" src="js/password-hash.js"></script>
   <script>
+	if(typeof(Storage) !== "undefined") {
+
+	}
+
     function hash(master, domain) {
       passwordLength = parseInt(document.getElementById('passwordLength').value);
       var MD5 = new Hashes.MD5;
@@ -77,18 +83,18 @@
       var SHA256 =  new Hashes.SHA256;
       var SHA512 = new Hashes.SHA512;
       var RMD160 = new Hashes.RMD160;
-      switch (document.getElementById('algorithm').selectedIndex){
-        case 0: return pwdHash.getHashedPassword(master, domain).substring(0,passwordLength);
-        case 1: return MD5.hex(master+":"+domain).substring(0,passwordLength);
-        case 2: return MD5.b64(master+":"+domain).substring(0,passwordLength);
-        case 3: return SHA1.hex(master+":"+domain).substring(0,passwordLength);
-        case 4: return SHA1.b64(master+":"+domain).substring(0,passwordLength);
-        case 5: return SHA256.hex(master+":"+domain).substring(0,passwordLength);
-        case 6: return SHA256.b64(master+":"+domain).substring(0,passwordLength);
-        case 7: return SHA512.hex(master+":"+domain).substring(0,passwordLength);
-        case 8: return SHA512.b64(master+":"+domain).substring(0,passwordLength);
-        case 9: return RMD160.hex(master+":"+domain).substring(0,passwordLength);
-        case 10: return RMD160.b64(master+":"+domain).substring(0,passwordLength);
+      switch(document.getElementById('algorithm').selectedIndex) {
+        case 0: return pwdHash.getHashedPassword(master, domain).substring(0, passwordLength);
+        case 1: return MD5.hex(master + ':' + domain).substring(0, passwordLength);
+        case 2: return MD5.b64(master + ':' + domain).substring(0, passwordLength);
+        case 3: return SHA1.hex(master + ':' + domain).substring(0, passwordLength);
+        case 4: return SHA1.b64(master + ':' + domain).substring(0, passwordLength);
+        case 5: return SHA256.hex(master + ':' + domain).substring(0, passwordLength);
+        case 6: return SHA256.b64(master + ':' + domain).substring(0, passwordLength);
+        case 7: return SHA512.hex(master + ':' + domain).substring(0, passwordLength);
+        case 8: return SHA512.b64(master + ':' + domain).substring(0, passwordLength);
+        case 9: return RMD160.hex(master + ':' + domain).substring(0, passwordLength);
+        case 10: return RMD160.b64(master + ':' + domain).substring(0, passwordLength);
       }
     }
   </script>
