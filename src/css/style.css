@@ -23,12 +23,27 @@ footer {
   color:#686868;
 }
 
+p {
+  margin:1em 0;
+  line-height:1.5em;
+}
+
 a {
+  color:#006c93;
+  text-decoration:underline;
+}
+
+a:hover {
   color:#686868;
   text-decoration:none;
 }
 
-a:hover {
+footer a {
+  color:#686868;
+  text-decoration:none;
+}
+
+footer a:hover {
   color:#006c93;
   text-decoration:underline;
 }
@@ -37,6 +52,11 @@ h1 {
   font-family:Montserrat,"Helvetica Neue",sans-serif;
   font-size:1.5em;
   color:#006c93;
+}
+
+h2 {
+    font-size:1em;
+    margin:0 0 .25em;
 }
 
 ul {
@@ -56,7 +76,7 @@ label {
   line-height:calc(1.5em + 4px);
 }
 
-input, select, #hashedPw {
+input, select, #hashedPw, .box {
   width:16em;
   width:15rem;
   -webkit-appearance:none;
@@ -70,6 +90,11 @@ input, select, #hashedPw {
   -webkit-box-sizing:border-box;
   -moz-box-sizing:border-box;
   box-sizing:border-box;
+}
+
+.box {
+    width:100%;
+    margin:1em 0;
 }
 
 #hashedPw {
