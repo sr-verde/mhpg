@@ -76,7 +76,7 @@ label {
   line-height:calc(1.5em + 4px);
 }
 
-input, select, #hashedPw, .box {
+input, select, #hashedPw, .box, button {
   width:16em;
   width:15rem;
   -webkit-appearance:none;
@@ -116,7 +116,7 @@ select:hover, select:focus, input:hover, input:focus {
   box-shadow:.1em .1em .1em 0 rgba(0,0,0,0.1);
 }
 
-input[type="submit"] {
+input[type="submit"], button {
   width:29em;
   width:27rem;
   margin-bottom:1em;
@@ -147,6 +147,28 @@ ul:after {
   line-height:0;
   height:0;
   clear:both;
+}
+
+/* Tooltip */
+#createButton {
+    position:relative;
+}
+
+#tooltip {
+    display:block;
+    width:15em;
+    background-color:#555;
+    color:#fff;
+    text-align:center;
+    border-radius:.25em;
+    padding:.25em;
+    z-index:1;
+    opacity:0;
+    position:absolute;
+    left:50%;
+    top:2.5em;
+    margin-left:-7.5em;    
+    transition:opacity .5s;
 }
 
 @media screen and (max-width:30em) {

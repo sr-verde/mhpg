@@ -21,7 +21,7 @@
     <li><label for="algorithm">Algorithmus:</label>
       
 	      <select id="algorithm">
-		      <option selected="true">PwdHash</option>
+		      <option selected>PwdHash</option>
 
 		      <option>Hex MD5</option>
 		      <option>Base64 MD5</option>
@@ -52,15 +52,15 @@
       <input type="password" id="password" required placeholder="Geheim123" />
     </li>
 
-    <li>
-      <input type="submit" value="Passwort erzeugen" 
-        onclick="document.getElementById('hashedPw').innerHTML=hash(document.getElementById('password').value, 
-                 document.getElementById('site').value.toLowerCase());document.getElementById('hashedPw').size=
-                 document.getElementById('passwordLength').value;">
+    <li id="createButton">
+      <button onclick="createPwd();">
+        Passwort erzeugen
+      </button>
+      <div id="tooltip">In Zwischenablage kopiert</div>
     </li>
     
     <li><label>Erzeugtes Passwort:</label>
-      <div id="hashedPw">&nbsp;</div>
+      <input type="text" id="hashedPw" value="" />
     </li>
   </ul>
   
@@ -69,15 +69,16 @@
   </footer>
 
   <!-- JavaScripts -->
-  <script type="application/x-javascript" src="js/jshashes.js"></script>
-  <script type="application/x-javascript" src="js/password-hash.js"></script>
+  <script src="js/jshashes.js"></script>
+  <script src="js/password-hash.js"></script>
   <script>
-	if(typeof(Storage) !== "undefined") {
-
-	}
-
+    function copy2clipboard(inputField) {
+      var copyText = document.getElementById(inputField);
+      copyText.select();
+      document.execCommand('copy');
+    }
     function hash(master, domain) {
-      passwordLength = parseInt(document.getElementById('passwordLength').value);
+      var passwordLength = parseInt(document.getElementById('passwordLength').value);
       var MD5 = new Hashes.MD5;
       var SHA1 = new Hashes.SHA1;
       var SHA256 =  new Hashes.SHA256;
@@ -96,6 +97,17 @@
         case 9: return RMD160.hex(master + ':' + domain).substring(0, passwordLength);
         case 10: return RMD160.b64(master + ':' + domain).substring(0, passwordLength);
       }
+    }
+    function createPwd() {
+        pwd = hash(document.getElementById('password').value, 
+                   document.getElementById('site').value.toLowerCase());
+        document.getElementById('hashedPw').value = pwd;
+        copy2clipboard('hashedPw');
+        var tooltip = document.getElementById("tooltip");
+        tooltip.style.opacity = '.75';
+        setTimeout(function() {
+            document.getElementById('tooltip').style.opacity = '0';
+        }, 2000);
     }
   </script>
 </body>
