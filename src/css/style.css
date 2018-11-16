@@ -132,6 +132,29 @@ input[type="submit"]:hover {
   cursor:pointer;
 }
 
+.passwordField {
+  position:relative;
+}
+
+.passwordField svg {
+  position:absolute;
+  right:.5em;
+  top:50%;
+  margin-top:-.5em;
+  cursor:pointer;
+}
+
+/* Images */
+svg {
+  width: 1em;
+  height: 1em;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
 /* remove dotted firefox border */
 @-moz-document url-prefix() {
 	select {

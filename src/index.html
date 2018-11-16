@@ -59,8 +59,9 @@
       <div id="tooltip">In Zwischenablage kopiert</div>
     </li>
     
-    <li><label>Erzeugtes Passwort:</label>
+    <li class="passwordField"><label>Erzeugtes Passwort:</label>
       <input type="text" id="hashedPw" value="" />
+      <svg height="16" width="16" onclick="passwordSwitcher('hashedPw')"><use xlink:href="images/feather/feather-sprite.svg#eye"></use></svg>
     </li>
   </ul>
   
@@ -75,7 +76,17 @@
     function copy2clipboard(inputField) {
       var copyText = document.getElementById(inputField);
       copyText.select();
-      document.execCommand('copy');
+      if(document.execCommand('copy')) {
+        copyText.type = 'password';
+      }
+    }
+    function passwordSwitcher(inputField) {
+      var passwordField = document.getElementById(inputField);
+      if(passwordField.type == 'text') {
+        passwordField.type = 'password';
+      } else {
+        passwordField.type = 'text';
+      }
     }
     function hash(master, domain) {
       var passwordLength = parseInt(document.getElementById('passwordLength').value);
