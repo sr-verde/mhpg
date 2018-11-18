@@ -109,7 +109,6 @@ select {
   background-position:right center;
   background-repeat:no-repeat;
   background-size:1.5em;
-  &::-ms-expand { display: none };
 }
 
 select:hover, select:focus, input:hover, input:focus {
@@ -178,20 +177,20 @@ ul:after {
 }
 
 #tooltip {
-    display:block;
-    width:15em;
-    background-color:#555;
-    color:#fff;
-    text-align:center;
-    border-radius:.25em;
-    padding:.25em;
-    z-index:1;
-    opacity:0;
-    position:absolute;
-    left:50%;
-    top:2.5em;
-    margin-left:-7.5em;    
-    transition:opacity .5s;
+  display:block;
+  width:15em;
+  background-color:#555;
+  color:#fff;
+  text-align:center;
+  border-radius:.25em;
+  padding:.25em;
+  z-index:1;
+  opacity:0;
+  position:absolute;
+  left:50%;
+  top:2.5em;
+  margin-left:-7.5em;    
+  transition:opacity .5s;
 }
 
 @media screen and (max-width:30em) {

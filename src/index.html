@@ -75,10 +75,14 @@
   <script>
     function copy2clipboard(inputField) {
       var copyText = document.getElementById(inputField);
+      copyText.type = 'text';
       copyText.select();
       if(document.execCommand('copy')) {
         copyText.type = 'password';
+        return true;
       }
+      console.log('Could not add password to clipboard.');
+      return false;
     }
     function passwordSwitcher(inputField) {
       var passwordField = document.getElementById(inputField);
@@ -112,13 +116,15 @@
     function createPwd() {
         pwd = hash(document.getElementById('password').value, 
                    document.getElementById('site').value.toLowerCase());
+        document.getElementById('hashedPw').value = '';
         document.getElementById('hashedPw').value = pwd;
-        copy2clipboard('hashedPw');
-        var tooltip = document.getElementById("tooltip");
-        tooltip.style.opacity = '.75';
-        setTimeout(function() {
+        if(copy2clipboard('hashedPw')) {
+          var tooltip = document.getElementById('tooltip');
+          tooltip.style.opacity = '.75';
+          setTimeout(function() {
             document.getElementById('tooltip').style.opacity = '0';
-        }, 2000);
+          }, 2000);
+        }
     }
   </script>
 </body>
