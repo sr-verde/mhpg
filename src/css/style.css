@@ -113,7 +113,8 @@ select {
 }
 
 select:hover, select:focus, input:hover, input:focus {
-  box-shadow: .1em .1em .1em 0 rgba(0,0,0,0.1);
+  box-shadow: .1em .1em .1em 0 rgba(0, 108, 147, .2);
+  border-color: #006c93;
 }
 
 input[type="submit"], button {
