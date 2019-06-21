@@ -76,7 +76,7 @@ label {
   line-height: calc(1.5em + 4px);
 }
 
-input, select, #hashedPw, .box, button {
+input[type="text"], input[type="number"], input[type="password"], select, #hashedPw, .box, button {
   width: 16em;
   width: 15rem;
   -webkit-appearance: none;
@@ -144,6 +144,10 @@ input[type="submit"]:hover {
   bottom: .5em;
   cursor: pointer;
 } 
+
+label[for="local-storage"] {
+  width: auto;
+}
 
 /* Images */
 svg {

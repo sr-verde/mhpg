@@ -52,6 +52,8 @@
       <input type="password" id="password" required placeholder="Geheim123" />
     </li>
 
+    <label for="local-storage"><input type="checkbox" id="local-storage" checked="checked" /> Speichere die Variablen lokal im Browser</label>
+
     <li id="createButton">
       <button onclick="createPwd();">
         Passwort erzeugen
@@ -72,88 +74,7 @@
   <!-- JavaScripts -->
   <script src="js/jshashes.js"></script>
   <script src="js/password-hash.js"></script>
-  <script>
-    function copy2localStorage(newVariable) {
-      let data = JSON.parse(localStorage.getItem('mhpgVars'));
-      if (data == null) data = [];
-      newVariable = newVariable.toLowerCase();
-      if (!data.includes(newVariable)) {
-        data.push(newVariable);
-        localStorage.setItem('mhpgVars', JSON.stringify(data));
-      }
-    }
-    function updateVarsFromLocalStorage() {
-      let data = JSON.parse(localStorage.getItem('mhpgVars'));
-      if (data == null) return;
-      let siteList = document.getElementById('site-list');
-      for (i=0; i < data.length; i++) {
-        let new_option = document.createElement('option');
-        new_option.value = data[i];
-        siteList.appendChild(new_option);
-      }
-    }
-    function copy2clipboard(inputField) {
-      let copyText = document.getElementById(inputField);
-      copyText.type = 'text';
-      copyText.select();
-      if(document.execCommand('copy')) {
-        copyText.type = 'password';
-        return true;
-      }
-      console.log('Could not add password to clipboard.');
-      return false;
-    }
-    function passwordSwitcher(inputField) {
-      let passwordField = document.getElementById(inputField);
-      if(passwordField.type == 'text') {
-        passwordField.type = 'password';
-      } else {
-        passwordField.type = 'text';
-      }
-    }
-    function hash(master, domain) {
-      let passwordLength = parseInt(document.getElementById('passwordLength').value);
-      let MD5 = new Hashes.MD5;
-      let SHA1 = new Hashes.SHA1;
-      let SHA256 =  new Hashes.SHA256;
-      let SHA512 = new Hashes.SHA512;
-      let RMD160 = new Hashes.RMD160;
-      switch(document.getElementById('algorithm').selectedIndex) {
-        case 0: return pwdHash.getHashedPassword(master, domain).substring(0, passwordLength);
-        case 1: return MD5.hex(master + ':' + domain).substring(0, passwordLength);
-        case 2: return MD5.b64(master + ':' + domain).substring(0, passwordLength);
-        case 3: return SHA1.hex(master + ':' + domain).substring(0, passwordLength);
-        case 4: return SHA1.b64(master + ':' + domain).substring(0, passwordLength);
-        case 5: return SHA256.hex(master + ':' + domain).substring(0, passwordLength);
-        case 6: return SHA256.b64(master + ':' + domain).substring(0, passwordLength);
-        case 7: return SHA512.hex(master + ':' + domain).substring(0, passwordLength);
-        case 8: return SHA512.b64(master + ':' + domain).substring(0, passwordLength);
-        case 9: return RMD160.hex(master + ':' + domain).substring(0, passwordLength);
-        case 10: return RMD160.b64(master + ':' + domain).substring(0, passwordLength);
-      }
-    }
-    function createPwd() {
-        pwd = hash(document.getElementById('password').value, 
-                   document.getElementById('site').value.toLowerCase());
-        document.getElementById('hashedPw').value = '';
-        document.getElementById('hashedPw').value = pwd;
-        if(copy2clipboard('hashedPw')) {
-          let tooltip = document.getElementById('tooltip');
-          tooltip.style.opacity = '.75';
-          setTimeout(function() {
-            document.getElementById('tooltip').style.opacity = '0';
-          }, 2000);
-          setTimeout(function() {
-            document.getElementById('hashedPw').type = 'password';
-          }, 25000);
-        }
-        copy2localStorage(document.getElementById('site').value);
-        updateVarsFromLocalStorage();
-    }
-    window.onload = function() {
-      updateVarsFromLocalStorage();
-    };
-  </script>
+  <script src="js/mhpg.js"></script>
 </body>
 </html>
 
