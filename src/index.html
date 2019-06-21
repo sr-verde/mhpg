@@ -15,8 +15,6 @@
 <body>
   <h1>Mobiler Hash-Passwort-Generator</h1>
 
-  <p>Wichtig: Lasse dir bei der Erzeugung des Passworts nicht über die Schulter schauen. Das Passwort wird anschließend im Klartext angezeigt.</p>
-
   <ul>
     <li><label for="algorithm">Algorithmus:</label>
       
@@ -45,7 +43,9 @@
     </li>
 
 	  <li><label for="site" title="Dies kann die Domain oder der Name des Dienstes sein">Variable:</label>
-	    <input type="text" id="site" value="" autofocus="autofocus" placeholder="example.com" />
+	    <input type="text" list="site-list" id="site" value="" autofocus="autofocus" placeholder="example.com" />
+        <datalist id="site-list">
+        </datalist>
     </li>
 
     <li><label for="password">Passwort:</label>
@@ -66,15 +66,34 @@
   </ul>
   
   <footer>
-    <p><a href="https://theus.name">Pascua Theus</a> / <a href="http://www.timando.net/hash-1/mobile.html">Nach einer Idee von Tim Anderson</a></p>
+    <p>&copy; <a href="https://theus.name">Pascua Theus</a> / <a href="http://www.timando.net/hash-1/mobile.html">Nach einer Idee von Tim Anderson</a></p>
   </footer>
 
   <!-- JavaScripts -->
   <script src="js/jshashes.js"></script>
   <script src="js/password-hash.js"></script>
   <script>
+    function copy2localStorage(newVariable) {
+      let data = JSON.parse(localStorage.getItem('mhpgVars'));
+      if (data == null) data = [];
+      newVariable = newVariable.toLowerCase();
+      if (!data.includes(newVariable)) {
+        data.push(newVariable);
+        localStorage.setItem('mhpgVars', JSON.stringify(data));
+      }
+    }
+    function updateVarsFromLocalStorage() {
+      let data = JSON.parse(localStorage.getItem('mhpgVars'));
+      if (data == null) return;
+      let siteList = document.getElementById('site-list');
+      for (i=0; i < data.length; i++) {
+        let new_option = document.createElement('option');
+        new_option.value = data[i];
+        siteList.appendChild(new_option);
+      }
+    }
     function copy2clipboard(inputField) {
-      var copyText = document.getElementById(inputField);
+      let copyText = document.getElementById(inputField);
       copyText.type = 'text';
       copyText.select();
       if(document.execCommand('copy')) {
@@ -85,7 +104,7 @@
       return false;
     }
     function passwordSwitcher(inputField) {
-      var passwordField = document.getElementById(inputField);
+      let passwordField = document.getElementById(inputField);
       if(passwordField.type == 'text') {
         passwordField.type = 'password';
       } else {
@@ -93,12 +112,12 @@
       }
     }
     function hash(master, domain) {
-      var passwordLength = parseInt(document.getElementById('passwordLength').value);
-      var MD5 = new Hashes.MD5;
-      var SHA1 = new Hashes.SHA1;
-      var SHA256 =  new Hashes.SHA256;
-      var SHA512 = new Hashes.SHA512;
-      var RMD160 = new Hashes.RMD160;
+      let passwordLength = parseInt(document.getElementById('passwordLength').value);
+      let MD5 = new Hashes.MD5;
+      let SHA1 = new Hashes.SHA1;
+      let SHA256 =  new Hashes.SHA256;
+      let SHA512 = new Hashes.SHA512;
+      let RMD160 = new Hashes.RMD160;
       switch(document.getElementById('algorithm').selectedIndex) {
         case 0: return pwdHash.getHashedPassword(master, domain).substring(0, passwordLength);
         case 1: return MD5.hex(master + ':' + domain).substring(0, passwordLength);
@@ -119,7 +138,7 @@
         document.getElementById('hashedPw').value = '';
         document.getElementById('hashedPw').value = pwd;
         if(copy2clipboard('hashedPw')) {
-          var tooltip = document.getElementById('tooltip');
+          let tooltip = document.getElementById('tooltip');
           tooltip.style.opacity = '.75';
           setTimeout(function() {
             document.getElementById('tooltip').style.opacity = '0';
@@ -128,7 +147,12 @@
             document.getElementById('hashedPw').type = 'password';
           }, 25000);
         }
+        copy2localStorage(document.getElementById('site').value);
+        updateVarsFromLocalStorage();
     }
+    window.onload = function() {
+      updateVarsFromLocalStorage();
+    };
   </script>
 </body>
 </html>
