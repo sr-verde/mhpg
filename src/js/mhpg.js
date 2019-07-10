@@ -20,6 +20,13 @@ function copy2clipboard(inputField) {
   console.log('Could not add password to clipboard.');
   return false;
 }
+function copy2localStorage(variable) {
+  let data = JSON.parse(localStorage.getItem('mhpgVars'));
+  if(data.indexOf(variable) == -1) {
+    data.push(variable);
+    localStorage.setItem('mhpgVars', JSON.stringify(data.sort()));
+  }
+}
 function passwordSwitcher(inputField) {
   let passwordField = document.getElementById(inputField);
   if(passwordField.type == 'text') {
